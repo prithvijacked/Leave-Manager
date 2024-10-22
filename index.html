@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #app {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"], input[type="date"], select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .leave-list {
+            margin-top: 20px;
+        }
+        .leave-item {
+            background: #eee;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1>Leave Management</h1>
+    <input type="text" id="name" placeholder="Your Name">
+    <select id="leaveType">
+        <option value="">Select Leave Type</option>
+        <option value="Sick Leave">Sick Leave</option>
+        <option value="Casual Leave">Casual Leave</option>
+        <option value="Annual Leave">Annual Leave</option>
+    </select>
+    <input type="date" id="startDate">
+    <input type="date" id="endDate">
+    <button onclick="applyLeave()">Apply Leave</button>
+
+    <div class="leave-list" id="leaveList"></div>
+</div>
+
+<script>
+    function applyLeave() {
+        const name = document.getElementById('name').value.trim();
+        const leaveType = document.getElementById('leaveType').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        if (name && leaveType && startDate && endDate) {
+            const leaveList = document.getElementById('leaveList');
+            const leaveItem = document.createElement('div');
+            leaveItem.className = 'leave-item';
+
+            leaveItem.innerHTML = `
+                <strong>${name}</strong><br>
+                Type: ${leaveType}<br>
+                From: ${startDate} To: ${endDate}
+            `;
+
+            leaveList.appendChild(leaveItem);
+            clearFields();
+        } else {
+            alert('Please fill in all fields.');
+        }
+    }
+
+    function clearFields() {
+        document.getElementById('name').value = '';
+        document.getElementById('leaveType').selectedIndex = 0;
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+    }
+</script>
+
+</body>
+</html>
